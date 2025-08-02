@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class Product {
 
-    @I
+    @Id
     @NotBlank
     private String id;
     @NotBlank
