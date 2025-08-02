@@ -5,11 +5,24 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
+
 @Document(collection="products")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Product {
+
+    @I
+    @NotBlank
+    private String id;
+    @NotBlank
+    private String name;
+    @NotBlank
+    private String category;
+    @NotBlank
+    private Double price;
+
     public String getId() {
         return id;
     }
@@ -41,11 +54,5 @@ public class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
-
-    @Id
-private String id;
-private String name;
-private String category;
-private Double price;
 
 }

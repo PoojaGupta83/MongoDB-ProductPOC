@@ -1,9 +1,11 @@
 package com.product.management.controller;
 
 import com.product.management.entity.Product;
+import com.product.management.exception.ProductException;
 import com.product.management.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +19,7 @@ public ProductController(ProductService productService) {
     }
 
     @PostMapping
-    public Product addProduct(@RequestBody Product product){
+    public Product addProduct(@Valid @RequestBody Product product){
    return productService.saveProduct(product);
     }
 
@@ -28,7 +30,7 @@ public ProductController(ProductService productService) {
 
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable String id){
-    return productService.findById(id).orElse(null);
+    return productService.findById(id).orElseThrow(()->new ProductException(id));
 
     }
 
