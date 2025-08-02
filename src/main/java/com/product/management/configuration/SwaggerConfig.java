@@ -15,6 +15,6 @@ public class SwaggerConfig {
                 .title("MongoDB Product POC API")
                 .description("SpringBoot MongoDB POC")
                 .version("v1.0").license(new License().name("Apache 2.0").url("http://springdoc.org")))
-                                .externalDocs(new ExternalDocumentation().description("Github Repository").url("https://github.com/MongoPoc"));
+                                .externalDocs(new ExternalDocumentation().description("Github Repository").url("https://github.com/PoojaGupta83/MongoDB-ProductPOC"));
     }
 }
