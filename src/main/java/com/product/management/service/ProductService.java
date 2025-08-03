@@ -2,6 +2,7 @@ package com.product.management.service;
 
 import com.product.management.entity.Product;
 import com.product.management.repository.ProductRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,15 +27,24 @@ public class ProductService {
             return productRepo.findAll();
         }
 
-        public Optional<Product> findById(String id){
-            return productRepo.findById(id);
+        public Product findById(String id){
+            Optional<Product> product=productRepo.findById(id);
+            return product.map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build()).getBody();
         }
 
-        public void updateProduct(Product product) {
-            productRepo.save(product);
+        public void updateProduct(Product product,String id) {
+            productRepo.findById(id).map(existing-> {
+                existing.setName(product.getName());
+                existing.setCategory(product.getCategory());
+                existing.setPrice(product.getPrice());
+                productRepo.save(product);
+            });
         }
-        public void deleteProduct(String id){
-            productRepo.deleteById(id);
+        public void deleteProduct(String id) {
+            if (productRepo.existsById(id)) {
+                productRepo.deleteById(id);
+            }
         }
 
         public List<Product> expensiveProduct(Double minPrice){
